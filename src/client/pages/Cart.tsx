@@ -39,7 +39,7 @@ export const Cart: React.FC = () => {
                     <td className={bem('Total')}>${item.count * item.price}</td>
                 </tr>
             );
-        });
+        }); 
 
         const total = Object.values(cart).reduce((sum, { count, price }) => sum + count * price, 0);
 
