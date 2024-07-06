@@ -1,5 +1,7 @@
 import React from 'react'
-import { describe, it } from '@jest/globals'
+import '@testing-library/jest-dom/jest-globals'
+import '@testing-library/jest-dom'
+import { describe, it, expect } from '@jest/globals'
 import { initApp } from './helpers'
 import { Cart } from '../../src/client/pages/Cart'
 import { render, screen, waitFor } from '@testing-library/react'
