@@ -1,5 +1,5 @@
 import { ExampleApi } from '../../src/client/api'
-import { BASEURL } from '../index'
+import { BASEURL, getPageUrl } from '../index'
 
 const api = new ExampleApi(BASEURL)
 
@@ -9,7 +9,7 @@ beforeEach(async ({ browser }) => {
 
 describe('Catalog', () => {
 	it('should render products that come from server', async ({ browser }) => {
-		await browser.url(`${BASEURL}/catalog`)
+		await browser.url(getPageUrl('/catalog'))
 
 		const { data: productsFromServerData } = await api.getProducts()
 
@@ -23,7 +23,7 @@ describe('Catalog', () => {
 	})
 
 	it('should show name for each product', async ({ browser }) => {
-		await browser.url(`${BASEURL}/catalog`)
+		await browser.url(getPageUrl('/catalog'))
 
 		const products = await Promise.all(
 			await browser.$$('.ProductItem-Name').map(p => p.getText()),
@@ -34,7 +34,7 @@ describe('Catalog', () => {
 	})
 
 	it('should show price for each product', async ({ browser }) => {
-		await browser.url(`${BASEURL}/catalog`)
+		await browser.url(getPageUrl('/catalog'))
 
 		const products = await Promise.all(
 			await browser.$$('.ProductItem-Price').map(p => p.getText()),
@@ -45,7 +45,7 @@ describe('Catalog', () => {
 	})
 
 	it('should show details link for each product', async ({ browser }) => {
-		await browser.url(`${BASEURL}/catalog`)
+		await browser.url(getPageUrl('/catalog'))
 
 		const products = await Promise.all(
 			await browser
@@ -60,13 +60,13 @@ describe('Catalog', () => {
 	it('should show message if product is in cart', async ({ browser }) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
 
-		await browser.url(`${BASEURL}/catalog/${productId}`)
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
 		await addToCart.click()
 
-		await browser.url(`${BASEURL}/catalog`)
+		await browser.url(getPageUrl('/catalog'))
 
 		const message = await browser.$('.CartBadge')
 
@@ -78,17 +78,29 @@ describe('Product Details Page', () => {
 	it('should render Add To Cart button', async ({ browser }) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
 
-		await browser.url(`${BASEURL}/catalog/${productId}`)
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
 		expect(addToCart.error).toBeUndefined()
 	})
 
+	it('should match data from server', async ({ browser }) => {
+		const productId = 1
+
+		await browser.url(getPageUrl(`/catalog/${productId}`))
+
+		const { data: productFromServerData } = await api.getProductById(
+			productId,
+		)
+
+		expect(productId).toEqual(productFromServerData.id)
+	})
+
 	it('should show message if product is in cart', async ({ browser }) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
 
-		await browser.url(`${BASEURL}/catalog/${productId}`)
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
@@ -103,16 +115,15 @@ describe('Product Details Page', () => {
 		browser,
 	}) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
-		const product = await api.getProductById(productId).then(r => r.data)
 
-		await browser.url(`${BASEURL}/catalog/${productId}`)
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
 		await addToCart.click()
 		await addToCart.click()
 
-		await browser.url(`${BASEURL}/cart`)
+		await browser.url(getPageUrl('/cart'))
 
 		const quantity = await browser.$('.Cart-Count').then(r => r.getText())
 		expect(parseInt(quantity)).toEqual(2)
@@ -121,13 +132,13 @@ describe('Product Details Page', () => {
 	it('should save products in cart on page refresh', async ({ browser }) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
 
-		await browser.url(`${BASEURL}/catalog/${productId}`)
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
 		await addToCart.click()
 
-		await browser.url(`${BASEURL}/cart`)
+		await browser.url(getPageUrl('/cart'))
 
 		const items = await Promise.all(
 			await browser.$$('.Cart-Name').map(p => p.getText()),

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Application } from '../../src/client/Application'
 import React, { ReactNode } from 'react'
 import { initStore } from '../../src/client/store'
-import { BASENAME } from '../index'
+import { BASENAME, BASEURL } from '../index'
 
 interface initAppOptions {
 	api?: ExampleApi
@@ -23,7 +23,7 @@ export function initApp(args?: initAppOptions) {
 		children = <Application />,
 	} = args ?? {}
 
-	const api = apiFromArgs ?? new ExampleApi(BASENAME)
+	const api = apiFromArgs ?? new ExampleApi(BASEURL)
 	const cart = cartFromArgs ?? new CartApi()
 
 	const store = initStore(api, cart)

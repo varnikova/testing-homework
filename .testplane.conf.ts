@@ -1,6 +1,6 @@
 export default {
 	gridUrl: 'http://localhost:4444/wd/hub',
-	baseUrl: 'http://localhost',
+	baseUrl: 'http://localhost:3000',
 	pageLoadTimeout: 0,
 	httpTimeout: 60000,
 	testTimeout: 90000,

@@ -29,13 +29,13 @@ describe('Cart', () => {
 	}) => {
 		const productId = await api.getProducts().then(r => r.data[0].id)
 
-		await browser.url(getPageUrl(`/catalog/${productId}`, 3))
+		await browser.url(getPageUrl(`/catalog/${productId}`))
 
 		const addToCart = await browser.$('.ProductDetails-AddToCart')
 
 		await addToCart.click()
 
-		await browser.url(getPageUrl('/cart', 3))
+		await browser.url(getPageUrl('/cart'))
 
 		const nameInput = browser.$('#f-name')
 		const phoneInput = browser.$('#f-phone')
@@ -48,10 +48,12 @@ describe('Cart', () => {
 
 		await submitButton.click()
 
-		const message = await browser.$('.Cart-SuccessMessage')
-		const cartNumber = await browser.$('.Cart-Number')
+		const message = await browser.$('.Cart-SuccessMessage.alert-success')
+		const cartNumber = await browser.$('.Cart-Number').getText()
+
+		await message.waitForDisplayed()
 
 		expect(message).toBeDisplayed()
-		expect(cartNumber).toHaveText('1')
+		expect(cartNumber).toEqual('1')
 	})
 })
