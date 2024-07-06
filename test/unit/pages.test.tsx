@@ -5,9 +5,6 @@ import { render } from '@testing-library/react'
 import { Home } from '../../src/client/pages/Home'
 import { Delivery } from '../../src/client/pages/Delivery'
 import { Contacts } from '../../src/client/pages/Contacts'
-import { Cart } from '../../src/client/pages/Cart'
-import { Catalog } from '../../src/client/pages/Catalog'
-import { initApp } from './helpers'
 
 describe('Website pages', function () {
 	it('home, delivery and contacts should have static content', () => {

@@ -1,6 +1,5 @@
 import { ExampleApi } from '../../src/client/api'
 import { BASEURL } from '../index'
-import { de } from '@faker-js/faker'
 
 const api = new ExampleApi(BASEURL)
 
@@ -117,5 +116,29 @@ describe('Product Details Page', () => {
 
 		const quantity = await browser.$('.Cart-Count').then(r => r.getText())
 		expect(parseInt(quantity)).toEqual(2)
+	})
+
+	it('should save products in cart on page refresh', async ({ browser }) => {
+		const productId = await api.getProducts().then(r => r.data[0].id)
+
+		await browser.url(`${BASEURL}/catalog/${productId}`)
+
+		const addToCart = await browser.$('.ProductDetails-AddToCart')
+
+		await addToCart.click()
+
+		await browser.url(`${BASEURL}/cart`)
+
+		const items = await Promise.all(
+			await browser.$$('.Cart-Name').map(p => p.getText()),
+		)
+
+		browser.refresh()
+
+		const itemsAfterRefresh = await Promise.all(
+			await browser.$$('.Cart-Name').map(p => p.getText()),
+		)
+
+		expect(items).toEqual(itemsAfterRefresh)
 	})
 })

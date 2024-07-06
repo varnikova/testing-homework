@@ -6,10 +6,10 @@ import { BASENAME } from '../index'
 describe('Header', () => {
 	it('should have links to catalog, cart, contacts, delivery', () => {
 		const app = initApp()
-		const { container } = render(app)
+		render(app)
 
 		const navLinks = Array.from(document.querySelectorAll('nav a.nav-link'))
-			.map((l: HTMLAnchorElement) => l.href.split('/').at(-1))
+			.map((l: any) => l.href.split('/').at(-1))
 			.sort()
 
 		const expectedLinks = ['catalog', 'cart', 'contacts', 'delivery'].sort()
@@ -21,7 +21,7 @@ describe('Header', () => {
 		const app = initApp()
 		const { container } = render(app)
 
-		const logo = container.querySelector('a.navbar-brand')
+		const logo = container.querySelector('a.navbar-brand')!
 
 		expect(logo.getAttribute('href')).toEqual(BASENAME)
 	})
