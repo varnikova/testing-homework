@@ -1,5 +1,38 @@
 # Домашнее задание ШРИ: Автотесты
 
+## Как запускать это чудо:
+1) устанваливаем в файле .env номер бага,например BUG_ID=1
+2) запускаем билд - npm build
+3) запускаем сервер - npm start
+4) прогоняем тесты , команда powershell: $env:BUG_ID = "1"; npx testplane
+5) повторяем с другим BUG_ID, сервер можно не перезапускать, он сам подтянет все
+
+
+## Мои результаты:
+BUG_ID = "" : Total: 18 Passed: 18 Failed: 0 Skipped: 0 Retries: 0
+
+BUG_ID = "1" : Total: 18 Passed: 16 Failed: 2 Skipped: 0 Retries: 0
+
+BUG_ID = "2" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "3" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "4" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "5" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "6" : Total: 18 Passed: 10 Failed: 8 Skipped: 0 Retries: 0
+
+BUG_ID = "7" : Total: 18 Passed: 9 Failed: 9 Skipped: 0 Retries: 0
+
+BUG_ID = "8" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "9" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+BUG_ID = "10" : Total: 18 Passed: 17 Failed: 1 Skipped: 0 Retries: 0
+
+
+
 ## Легенда
 
 Однажды, во время очередной виртуальной прогулки по интернету, кот Шрикс наткнулся на рекламу интернет-магазина зоотоваров. В его глазах загорелся огонек, ведь на сайте красовалась фотография великолепной когтеточки, о которой он давно мечтал.

@@ -2,6 +2,7 @@ import * as path from "path";
 import * as webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+const Dotenv = require('dotenv-webpack');
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -17,6 +18,7 @@ const config: webpack.Configuration = {
     maxAssetSize: 512000,
   },
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: "src/static/index.html",
     }),
