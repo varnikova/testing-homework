@@ -13,6 +13,7 @@ export default {
 	},
 	browsers: {
 		chrome: {
+			screenshotDelay: 200,
 			automationProtocol: 'devtools',
 			headless: true,
 			desiredCapabilities: {
