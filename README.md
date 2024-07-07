@@ -55,6 +55,9 @@ npm run build
 
 # запустите сервер
 npm start
+
+# для запуска одного из файлов (для Windows)
+npm test -- ./test/unit/{file_name}.test.tsx
 ```
 
 После этого можете открыть приложение в браузере по адресу http://localhost:3000/hw/store
@@ -66,3 +69,12 @@ npm start
 Как передать `bug id`:
 - при запуске интеграционных тестов передавайте значение в параметре запроса, например, http://localhost:3000/hw/store/catalog/0?bug_id=9
 - при запуске модульных тестов передавайте значение в переменной окружения `BUG_ID`, например, `BUG_ID=1 npm run test`
+
+## Что сделано?
+
+* test/unit/layout.test.tsx - Тесты, что в интерфейсе есть ссылки на другие страницы.
+* test/unit/hamburger.test.tsx - Тесты для адаптивной шапки.
+* test/unit/catalogue.test.tsx - Tесты для проверки функциональности каталога.
+* test/unit/cart.test.tsx - Тесты для проверки функциональности корзины.
+
+* test/unit/form.test.tsx - В разработке.
